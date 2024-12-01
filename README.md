@@ -52,7 +52,7 @@ cp ./docker/.env.example .env
 docker compose -f docker/docker-compose.prod.yml --env-file .env up
 ```
 
-起動後、ブラウザでhttp://127.0.0.1/にアクセスしてください。
+起動後、ブラウザで[http://127.0.0.1/](http://127.0.0.1/)にアクセスしてください。
 
 ### doccano上でのテキスト分類手順
 
