@@ -36,7 +36,11 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+   css: [
+    '~/assets/markdown.css',
+    // ref https://highlightjs.org/static/demo/
+    'highlight.js/styles/dark.css',
+  ],
   /*
    ** Plugins to load before mounting the App
    */
@@ -57,7 +61,8 @@ export default {
     ['nuxt-i18n', i18n],
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/markdownit',
   ],
 
   buildModules: [
@@ -144,6 +149,14 @@ export default {
         }
       }
     }
+  },
+  markdownit: {
+    // ref: https://github.com/markdown-it/markdown-it
+    linkify: true,
+    breaks: true,
+    use: [
+      'markdown-it-highlightjs',
+    ],
   },
   /*
    ** Build configuration

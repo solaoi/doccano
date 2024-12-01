@@ -44,23 +44,23 @@ export default {
       items: [
         {
           name: 'Jump to the first data',
-          key: ['shift', '←']
+          key: ['Shift', '←']
         },
         {
           name: 'Jump to the last data',
-          key: ['shift', '→']
+          key: ['Shift', '→']
         },
         {
           name: 'Move to the previous data',
-          key: ['←']
+          key: ['← or z']
         },
         {
           name: 'Move to the next data',
-          key: ['→']
+          key: ['→ or Space']
         },
         {
           name: 'Confirm the data',
-          key: ['enter']
+          key: ['enter or a (pprove)']
         }
       ]
     }

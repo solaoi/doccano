@@ -1,0 +1,48 @@
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown p,
+.markdown pre,
+.markdown ul,
+.markdown table {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.markdown table {
+  border-collapse: separate;
+  border-spacing: 0 0;
+}
+
+.markdown table th,
+.markdown table td {
+  padding: 6px 12px;
+  border-bottom: 1px solid #eeeeee;
+  border-right: 1px solid #eeeeee;
+}
+
+.markdown table tr:first-child th {
+  border-top: 1px solid #eeeeee;
+  background-color: #333;
+}
+
+.markdown table tr th:first-child,
+.markdown table tr td:first-child {
+  border-left: 1px solid #eeeeee;
+}
+
+.markdown table tr:first-child th:first-child {
+  border-top-left-radius: 8px;
+}
+
+.markdown table tr:first-child th:last-child {
+  border-top-right-radius: 8px;
+}
+
+.markdown table tr:last-child td:first-child {
+  border-bottom-left-radius: 8px;
+}
+
+.markdown table tr:last-child td:last-child {
+  border-bottom-right-radius: 8px;
+}

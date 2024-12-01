@@ -2,191 +2,141 @@
   <img src="https://raw.githubusercontent.com/doccano/doccano/master/docs/images/logo/doccano.png">
 </div>
 
-# doccano
+# doccanoのテキスト分類にMarkdown処理を追加したFork版
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/35ac8625a2bc4eddbff23dbc61bc6abb)](https://www.codacy.com/gh/doccano/doccano/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=doccano/doccano&amp;utm_campaign=Badge_Grade)
-[![doccano CI](https://github.com/doccano/doccano/actions/workflows/ci.yml/badge.svg)](https://github.com/doccano/doccano/actions/workflows/ci.yml)
+**doccano**は、オープンソースのアノテーションツールで、テキスト分類、系列ラベリング、系列変換といったタスク向けの機能を提供します。このFork版では、Markdown形式でのテキスト処理を追加しています。
 
-doccano is an open-source text annotation tool for humans. It provides annotation features for text classification, sequence labeling, and sequence to sequence tasks. You can create labeled data for sentiment analysis, named entity recognition, text summarization, and so on. Just create a project, upload data, and start annotating. You can build a dataset in hours.
-
-## Demo
-
-Try the [annotation demo](http://doccano.herokuapp.com).
+## 利用イメージ
 
 ![Demo image](https://raw.githubusercontent.com/doccano/doccano/master/docs/images/demo/demo.gif)
 
-## Documentation
+## 公式ドキュメント
 
-Read the documentation at <https://doccano.github.io/doccano/>.
+[https://doccano.github.io/doccano/](https://doccano.github.io/doccano/)
 
-## Features
+## 機能
 
-- Collaborative annotation
-- Multi-language support
-- Mobile support
-- Emoji :smile: support
-- Dark theme
-- RESTful API
+- 複数人でのアノテーション
+- 多言語サポート
+- モバイルサポート
+- ダークテーマ
+- REST APIのサポート
 
-## Usage
+## 環境構築方法
 
-There are three options to run doccano:
+### Docker Composeを使用したセットアップ
 
-- pip (Python 3.8+)
-- Docker
-- Docker Compose
-
-### pip
-
-To install doccano, run:
+1. **リポジトリをクローン**
 
 ```bash
-pip install doccano
-```
-
-By default, SQLite 3 is used for the default database. If you want to use PostgreSQL, install the additional dependencies:
-
-```bash
-pip install 'doccano[postgresql]'
-```
-
-and set the `DATABASE_URL` environment variable according to your PostgreSQL credentials:
-
-```bash
-DATABASE_URL="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?sslmode=disable"
-```
-
-After installation, run the following commands:
-
-```bash
-# Initialize database.
-doccano init
-# Create a super user.
-doccano createuser --username admin --password pass
-# Start a web server.
-doccano webserver --port 8000
-```
-
-In another terminal, run the command:
-
-```bash
-# Start the task queue to handle file upload/download.
-doccano task
-```
-
-Go to <http://127.0.0.1:8000/>.
-
-### Docker
-
-As a one-time setup, create a Docker container as follows:
-
-```bash
-docker pull doccano/doccano
-docker container create --name doccano \
-  -e "ADMIN_USERNAME=admin" \
-  -e "ADMIN_EMAIL=admin@example.com" \
-  -e "ADMIN_PASSWORD=password" \
-  -v doccano-db:/data \
-  -p 8000:8000 doccano/doccano
-```
-
-Next, start doccano by running the container:
-
-```bash
-docker container start doccano
-```
-
-Go to <http://127.0.0.1:8000/>.
-
-To stop the container, run `docker container stop doccano -t 5`. All data created in the container will persist across restarts.
-
-If you want to use the latest features, specify the `nightly` tag:
-
-```bash
-docker pull doccano/doccano:nightly
-```
-
-### Docker Compose
-
-You need to install Git and clone the repository:
-
-```bash
-git clone https://github.com/doccano/doccano.git
+git clone https://github.com/solaoi/doccano.git
 cd doccano
 ```
 
-_Note for Windows developers:_ Be sure to configure git to correctly handle line endings or you may encounter `status code 127` errors while running the services in future steps. Running with the git config options below will ensure your git directory correctly handles line endings.
+Windowsユーザー向けの注意: 改行コード処理の問題を避けるために以下のオプションを使用してください。
 
 ```bash
-git clone https://github.com/doccano/doccano.git --config core.autocrlf=input
+git clone https://github.com/solaoi/doccano.git --config core.autocrlf=input
+cd doccano
 ```
 
-Then, create an `.env` file with variables in the following format (see [./docker/.env.example](https://github.com/doccano/doccano/blob/master/docker/.env.example)):
-
-```plain
-# platform settings
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD=password
-ADMIN_EMAIL=admin@example.com
-
-# rabbit mq settings
-RABBITMQ_DEFAULT_USER=doccano
-RABBITMQ_DEFAULT_PASS=doccano
-
-# database settings
-POSTGRES_USER=doccano
-POSTGRES_PASSWORD=doccano
-POSTGRES_DB=doccano
-```
-
-After running the following command, access <http://127.0.0.1/>.
+2. `.env` ファイルの作成
 
 ```bash
-docker-compose -f docker/docker-compose.prod.yml --env-file .env up
+cp ./docker/.env.example .env
 ```
 
-### One-click Deployment
+3. Docker Composeで起動
 
-| Service | Button |
-|---------|---|
-| AWS[^1]   | [![AWS CloudFormation Launch Stack SVG Button](https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg)](https://console.aws.amazon.com/cloudformation/home?#/stacks/new?stackName=doccano&templateURL=https://doccano.s3.amazonaws.com/public/cloudformation/template.aws.yaml)  |
-| Heroku  | [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https%3A%2F%2Fgithub.com%2Fdoccano%2Fdoccano)  |
-<!-- | GCP[^2] | [![GCP Cloud Run PNG Button](https://storage.googleapis.com/gweb-cloudblog-publish/images/run_on_google_cloud.max-300x300.png)](https://console.cloud.google.com/cloudshell/editor?shellonly=true&cloudshell_image=gcr.io/cloudrun/button&cloudshell_git_repo=https://github.com/doccano/doccano.git&cloudshell_git_branch=CloudRunButton)  | -->
-
-> [^1]: (1) EC2 KeyPair cannot be created automatically, so make sure you have an existing EC2 KeyPair in one region. Or [create one yourself](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair). (2) If you want to access doccano via HTTPS in AWS, here is an [instruction](https://github.com/doccano/doccano/wiki/HTTPS-setting-for-doccano-in-AWS).
-<!-- > [^2]: Although this is a very cheap option, it is only suitable for very small teams (up to 80 concurrent requests). Read more on [Cloud Run docs](https://cloud.google.com/run/docs/concepts). -->
-
-## FAQ
-
-- [How to create a user](https://doccano.github.io/doccano/faq/#how-to-create-a-user)
-- [How to add a user to your project](https://doccano.github.io/doccano/faq/#how-to-add-a-user-to-your-project)
-- [How to change the password](https://doccano.github.io/doccano/faq/#how-to-change-the-password)
-
-See the [documentation](https://doccano.github.io/doccano/) for details.
-
-## Contribution
-
-As with any software, doccano is under continuous development. If you have requests for features, please file an issue describing your request. Also, if you want to see work towards a specific feature, feel free to contribute by working towards it. The standard procedure is to fork the repository, add a feature, fix a bug, then file a pull request that your changes are to be merged into the main repository and included in the next release.
-
-Here are some tips might be helpful. [How to Contribute to Doccano Project](https://github.com/doccano/doccano/wiki/How-to-Contribute-to-Doccano-Project)
-
-## Citation
-
-```tex
-@misc{doccano,
-  title={{doccano}: Text Annotation Tool for Human},
-  url={https://github.com/doccano/doccano},
-  note={Software available from https://github.com/doccano/doccano},
-  author={
-    Hiroki Nakayama and
-    Takahiro Kubo and
-    Junya Kamura and
-    Yasufumi Taniguchi and
-    Xu Liang},
-  year={2018},
-}
+```bash
+docker compose -f docker/docker-compose.prod.yml --env-file .env up
 ```
 
-## Contact
+起動後、ブラウザで[http://127.0.0.1/](http://127.0.0.1/)にアクセスしてください。
 
-For help and feedback, feel free to contact [the author](https://github.com/Hironsan).
+### doccano上でのテキスト分類手順
+
+#### 1. ログイン
+
+<img width="725" alt="スクリーンショット 2024-12-01 21 50 31" src="https://github.com/user-attachments/assets/42fa00d2-83ba-415b-9d86-695f56e0bfee">
+
+- [http://127.0.0.1/](http://127.0.0.1/)にアクセスし、`ADMIN_USERNAME` および `ADMIN_PASSWORD` （デフォルトでは `doccano` ）を使用してログインします。
+
+#### 2. プロジェクトの作成
+
+<img width="549" alt="スクリーンショット 2024-12-01 21 53 11" src="https://github.com/user-attachments/assets/52d46953-ae3a-44b1-ab76-23ce6cec10f9">
+
+- プロジェクト作成画面で以下を設定:
+  - タスクタイプ: `Text Classification`
+  - プロジェクト名と説明を入力
+  - `Allow single label` を有効化
+- 作成後、詳細画面に遷移します。
+
+#### 3. ラベルのインポート
+
+<img width="1244" alt="スクリーンショット 2024-12-01 21 54 59" src="https://github.com/user-attachments/assets/e91b8123-803d-4696-b2ab-553f3cf208a7">
+
+- サイドバーの `Labels` から `Import Labels` を選択。
+- リポジトリ内の `sample/labels.json` を選択し、インポートします。
+
+#### 4. データセットのインポート
+
+<img width="1244" alt="スクリーンショット 2024-12-01 21 56 01" src="https://github.com/user-attachments/assets/3b642629-c871-4eb7-8e57-455d47243df8">
+
+- サイドバーの `Dataset` から `Import Dataset` を選択。
+- ファイル形式 `JSONL` を選び、以下のスクリプトで生成した `doccano.jsonl` をインポートします。
+
+```python
+import json
+
+from datasets import load_dataset
+
+# 利用したいデータセットをHugging Faceからロード
+dataset = load_dataset("llm-jp/magpie-sft-v1.0")
+
+# 必要なフィールドを生成する処理（データセットに応じて編集ください）
+def formatter(example):
+    formatted_conversations = ""
+    for conv in example["conversations"]:
+        if conv["role"] == "user":
+            formatted_conversations += f"**\[user\]**\n{conv['content']}\n"
+            question = conv['content']
+        elif conv["role"] == "assistant":
+            formatted_conversations += f"\n**\[assistant\]**\n{conv['content']}\n"
+            answer = conv['content']
+
+    return {
+        "original_id": example["id"],
+        "question": question,
+        "answer": answer,
+        # このtext項目がラベル（goodまたはbad）で評価する対象となる
+        "text": formatted_conversations,
+        "label": [],
+    }
+
+
+# データセットを変換し、不要なフィールドを削除
+processed_dataset = dataset.map(formatter, remove_columns=dataset["train"].column_names)
+
+# JSONL形式で保存
+output_path = "doccano.jsonl"
+processed_dataset["train"].to_json(output_path, orient="records", lines=True)
+
+print(f"JSONL形式のデータセットを以下のパスに保存しました: {output_path}")
+```
+
+#### 5. アノテーションの開始
+
+<img width="1483" alt="スクリーンショット 2024-12-01 22 02 13" src="https://github.com/user-attachments/assets/020a5949-db40-4758-bb98-f58b5261d3ee">
+
+- サイドバーの `Start Annotation` をクリックしてアノテーションを開始。
+- このFork版では、ショートカットキーを活用し片手で操作ができます。
+  - `g` キーで `Good` ラベルを選択
+  - `b` キーで `Bad` ラベルを選択
+  - `a` キーで上記ラベルを承認（approve）
+  - `Space` キーで次のデータへ進む
+  - `z` キーで前のデータに戻る
+
+#### 6. 結果のエクスポート
+
+- アノテーションが完了したら、 `Dataset` から `Export Dataset` を使用して結果をエクスポートします。

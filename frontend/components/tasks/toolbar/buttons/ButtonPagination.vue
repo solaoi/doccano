@@ -26,7 +26,7 @@
       <v-icon>{{ mdiPageFirst }}</v-icon>
     </v-btn>
     <v-btn
-      v-shortkey.once="['arrowleft']"
+      v-shortkey.once="{arrowleft: ['arrowleft'], z: ['z']}"
       :disabled="isFirstPage"
       text
       fab
@@ -37,7 +37,7 @@
       <v-icon>{{ mdiChevronLeft }}</v-icon>
     </v-btn>
     <v-btn
-      v-shortkey.once="['arrowright']"
+      v-shortkey.once="{arrowright: ['arrowright'], space: ['space']}"
       :disabled="isLastPage"
       text
       fab
