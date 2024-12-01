@@ -58,7 +58,7 @@ docker compose -f docker/docker-compose.prod.yml --env-file .env up
 
 #### 1. ログイン
 
-- [http://127.0.0.1/](http://127.0.0.1/)にアクセスし、` ADMIN_USERNAME` および `ADMIN_PASSWORD` （デフォルトでは `doccano` ）を使用してログインします。
+- [http://127.0.0.1/](http://127.0.0.1/)にアクセスし、`ADMIN_USERNAME` および `ADMIN_PASSWORD` （デフォルトでは `doccano` ）を使用してログインします。
 
 #### 2. プロジェクトの作成
 
@@ -83,7 +83,7 @@ import json
 
 from datasets import load_dataset
 
-# データセットをHugging Faceからロード
+# 利用したいデータセットをHugging Faceからロード
 dataset = load_dataset("llm-jp/magpie-sft-v1.0")
 
 # 必要なフィールドを生成する処理（データセットに応じて編集ください）
