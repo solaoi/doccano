@@ -58,9 +58,13 @@ docker compose -f docker/docker-compose.prod.yml --env-file .env up
 
 #### 1. ログイン
 
+<img width="725" alt="スクリーンショット 2024-12-01 21 50 31" src="https://github.com/user-attachments/assets/42fa00d2-83ba-415b-9d86-695f56e0bfee">
+
 - [http://127.0.0.1/](http://127.0.0.1/)にアクセスし、`ADMIN_USERNAME` および `ADMIN_PASSWORD` （デフォルトでは `doccano` ）を使用してログインします。
 
 #### 2. プロジェクトの作成
+
+<img width="549" alt="スクリーンショット 2024-12-01 21 53 11" src="https://github.com/user-attachments/assets/52d46953-ae3a-44b1-ab76-23ce6cec10f9">
 
 - プロジェクト作成画面で以下を設定:
   - タスクタイプ: `Text Classification`
@@ -70,10 +74,14 @@ docker compose -f docker/docker-compose.prod.yml --env-file .env up
 
 #### 3. ラベルのインポート
 
+<img width="1244" alt="スクリーンショット 2024-12-01 21 54 59" src="https://github.com/user-attachments/assets/e91b8123-803d-4696-b2ab-553f3cf208a7">
+
 - サイドバーの `Labels` から `Import Labels` を選択。
 - リポジトリ内の `sample/labels.json` を選択し、インポートします。
 
 #### 4. データセットのインポート
+
+<img width="1244" alt="スクリーンショット 2024-12-01 21 56 01" src="https://github.com/user-attachments/assets/3b642629-c871-4eb7-8e57-455d47243df8">
 
 - サイドバーの `Dataset` から `Import Dataset` を選択。
 - ファイル形式 `JSONL` を選び、以下のスクリプトで生成した `doccano.jsonl` をインポートします。
@@ -118,6 +126,8 @@ print(f"JSONL形式のデータセットを以下のパスに保存しました:
 ```
 
 #### 5. アノテーションの開始
+
+<img width="1483" alt="スクリーンショット 2024-12-01 22 02 13" src="https://github.com/user-attachments/assets/020a5949-db40-4758-bb98-f58b5261d3ee">
 
 - サイドバーの `Start Annotation` をクリックしてアノテーションを開始。
 - ショートカットキー（例: `g` キーで `Good` ラベルを選択）を活用できます。
