@@ -1,0 +1,14 @@
+[
+    {
+        "text": "Good",
+        "suffix_key": "g",
+        "background_color": "#4CAF50",
+        "text_color": "#ffffff"
+    },
+    {
+        "text": "Bad",
+        "suffix_key": "b",
+        "background_color": "#F44336",
+        "text_color": "#ffffff"
+    }
+]

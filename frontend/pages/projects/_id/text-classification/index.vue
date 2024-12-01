@@ -31,7 +31,10 @@
           />
         </v-card-title>
         <v-divider />
-        <v-card-text class="title highlight" style="white-space: pre-wrap" v-text="example.text" />
+        <div
+          class="markdown"
+          style="padding: 12px; background-color: #F7F7F7; color: #181818;"
+          v-html="$md.render(example.text)"></div>
       </v-card>
     </template>
     <template #sidebar>

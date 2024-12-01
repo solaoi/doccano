@@ -8,10 +8,11 @@
               :src="require(`~/assets/images/tasks/${images[i]}`)"
               height="200"
               contain
+              style="cursor: pointer"
               @click="toggle"
             />
             <v-card-title>
-              <v-icon v-if="active">
+              <v-icon v-if="active" style="color: #4CAF50">
                 {{ mdiCheckBold }}
               </v-icon>
               {{ translateTypeName(item, $t('overview.projectTypes')) }}

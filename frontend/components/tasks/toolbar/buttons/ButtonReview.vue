@@ -2,16 +2,16 @@
   <v-tooltip bottom>
     <template #activator="{ on }">
       <v-btn
-        v-shortkey.once="['enter']"
+        v-shortkey.once="{enter: ['enter'], a: ['a']}"
         icon
         v-on="on"
         @shortkey="$emit('click:review')"
         @click="$emit('click:review')"
       >
-        <v-icon v-if="isReviewd">
+        <v-icon v-if="isReviewd" style="color: #4CAF50">
           {{ mdiCheck }}
         </v-icon>
-        <v-icon v-else>
+        <v-icon v-else style="color: #F44336">
           {{ mdiClose }}
         </v-icon>
       </v-btn>
